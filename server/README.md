@@ -24,13 +24,13 @@ Getting Started
 
 - `initialize_mediapublic_db development.ini`
 
-- `pserve development.ini`
+- `pserve development.ini --reload`
 
 Running Tests
 -------------
 
 Currently, the only tests are API tests (using [gabbi][gabbi]) and PEP8 checks.
-These can be run using [tox][tox].
+These can be run using [tox][tox] (`pip install tox`).
 
 ```
 # run all tests
