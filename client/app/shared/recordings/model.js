@@ -10,7 +10,11 @@ export default Model.extend({
     url: {
       type: 'Text',
       validators: ['url', 'required'],
-    }
+    },
+    organization_id: {
+      type: 'Text',
+      validators: ['required'],
+    },
   },
 
   permalink() {

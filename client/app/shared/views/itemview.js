@@ -9,7 +9,6 @@ import Form from 'shared/forms/distributed';
  * Standard ItemView, extended to include the model cid in all serialized data.
  */
 export default ItemView.extend({
-
   initialize: function(options) {
     if (_.isUndefined(options.editing)) {
       options.editing = options.model && options.model.isNew();
@@ -23,7 +22,6 @@ export default ItemView.extend({
     if (this.model.isNew()) {
       this.listenToOnce(this.model, 'sync', this.navigateToModel);
     }
-
     return ItemView.prototype.initialize.apply(this, arguments);
   },
 

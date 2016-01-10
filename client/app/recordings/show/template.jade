@@ -1,15 +1,44 @@
 include ../../shared/components/edit-buttons
-= console.log(this.title)
+-
+  window.formRendered = function(){
+    document.getElementsByClassName('control-label')[3].innerText = "Organization"
+    var organizationInput = document.getElementsByTagName("input")[2]
+    //hide element that contains the actual data
+    //have to remove height, border, padding b/c making invisible still leaves empty space
+    organizationInput.style.height = 0
+    organizationInput.style.border = 0
+    organizationInput.style.padding = 0
+    if(organizationName){
+      var nameDisplay = organizationInput.cloneNode()
+      nameDisplay.setAttribute("type", "text")
+      nameDisplay.value =  organizationName
+      nameDisplay.setAttribute("disabled", "disabled")
+      organizationInput.parentNode.appendChild(nameDisplay)
+    } else {
+      var container = document.getElementsByClassName("field-organization_id")[0]
+      var select = document.createElement("select")
+      var option = new Option()
+      option.setAttribute("disabled", "disabled")
+      option.setAttribute("selected", "selected")
+      option.text = "Select an organization"
+      select.add(option)
+      for(var i = 0; i < organizationList.length; i++){
+        option = new Option()
+        option.value = organizationList[i]["id"]
+        option.text = organizationList[i]["short_name"]
+        select.add(option)
+      }
+      select.onchange = function(){
+        organizationInput.value = this.value
+      }
+      container.appendChild(select)
+    }
+  }
 div(model=cid, data-fields='*')
-  a(href="url").h1= "title"
+  a(href=url).h1= title
   p= url
   p.recording-description= description
-  if false
-    p.organization-id
-      organizationName
-  else
-    select.organization-id
-  end
+  a(href="/#/organizations/"+organization_id).p Organization
   script.
     if(window.opener && document.getElementsByClassName("btn btn-default edit").length > 0){
       alert("Thanks for helping out!");
