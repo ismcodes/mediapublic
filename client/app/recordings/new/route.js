@@ -15,6 +15,16 @@ export default Route.extend({
       });
       that.container.show(that.view);
     }
+    function retrieveListAndRender(_model){
+      var listxhr = new XMLHttpRequest();
+      listxhr.onreadystatechange = function(){
+        var list = JSON.parse(listxhr.responseText)["data"]
+        _model.attributes["organizationList"] = list;
+        renderPage(_model);
+      }
+      listxhr.open("GET", "http://localhost:6543/organizations");
+      listxhr.send();
+    }
     var _model = new Model();
     var hostName;
     if(params){
@@ -33,7 +43,7 @@ export default Route.extend({
         }
       }
     } else {
-      renderPage(_model);
+      retrieveListAndRender(_model);
     }
 
 
@@ -43,13 +53,7 @@ export default Route.extend({
       xhr.onreadystatechange = function(){
           if(true){//xhr.responseText == "{}"
             //retrieve full list from server
-            xhr.onreadystatechange = function(){
-                var list = JSON.parse(xhr.responseText)["data"]
-                _model.attributes["organizationList"] = list;
-                renderPage(_model);
-            }
-            xhr.open("GET", "http://localhost:6543/organizations");
-            xhr.send();
+            retrieveListAndRender(_model);
           } else {
             var organizationData = JSON.parse(xhr.responseText);
             _model.attributes["organizationName"] = organizationData["name"];

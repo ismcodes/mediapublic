@@ -108,7 +108,9 @@ var DistributedForm = BackboneForm.extend({
       });
     });
 
-    window.formRendered();
+    if(typeof window.formRendered == "function"){
+      window.formRendered();
+    }
     return this;
   }
 });
